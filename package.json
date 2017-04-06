@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qiangck/React-music.git"
+    "url": "git+https://github.com/qiangck/react-music.git"
   },
   "author": "qiangck@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/qiangck/React-music/issues"
+    "url": "https://github.com/qiangck/react-music/issues"
   },
-  "homepage": "https://github.com/qiangck/React-music#readme",
+  "homepage": "https://github.com/qiangck/react-music#readme",
   "devDependencies": {
     "react-scripts": "^0.9.3"
   },

@@ -24,15 +24,25 @@ class Main extends Component {
     }
     render () {
         return (
-            <section className="main">
+            <div className="main">
                 <div className="main-bg"></div>
                 <div className="box">
-                    {/*<Cover imgUrl={data.imgUrl}/>
-                    <Describe album={data.des} name={data.name}/>
-                    <Button musicUrl={data.musicUrl} isPlay={data.isPlay}/>
-                    */}
+                    <div className="playerInfo">
+                        <div className="face">
+                            <div className="time">10:00</div>
+                        </div>
+                        <div className="name">asdasdsa</div>
+                        <div className="artist">asdasdasd</div>
+                    </div>
+                    <div className="playerProgress">asdasdas</div>
+                    <div className="playerControl">
+                        <a href="#"><i></i>后退</a>
+                        <a href="#"><i></i>播放/暂停</a>
+                        <a href="#"><i></i>前进</a>
+                    </div>
                 </div>
-            </section>
+                <audio id="audio"></audio>
+            </div>
         )
     }
 }

@@ -1,1 +1,1 @@
-# react-music
+# 基于React开发的播放器项目

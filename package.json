@@ -1,0 +1,32 @@
+{
+  "name": "react-music",
+  "version": "1.0.0",
+  "description": "This is a React for the development of players。",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qiangck/React-music.git"
+  },
+  "author": "qiangck@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qiangck/React-music/issues"
+  },
+  "homepage": "https://github.com/qiangck/React-music#readme",
+  "devDependencies": {
+    "react-scripts": "^0.9.3"
+  },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "mockjs": "^1.0.1-beta3",
+    "normalize.css": "^6.0.0",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
+  }
+}

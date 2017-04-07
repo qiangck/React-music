@@ -2,8 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta id=viewport name=viewport content="width=device-width,minimum-scale=1,maximum-scale=1">
     <title>React Music</title>
+    <script>
+    	var view_width = document.getElementsByTagName('html')[0].getBoundingClientRect().width;
+        var _html = document.getElementsByTagName('html')[0];
+        view_width>640?_html.style.fontSize = 640 / 16 + 'px':_html.style.fontSize = view_width / 16 + 'px';
+    </script>
   </head>
   <body>
     <div id="app"></div>

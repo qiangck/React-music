@@ -21,6 +21,41 @@ class Main extends Component {
         },(error) => {
             console.log(error)
         });
+        $.postCORS("http://box.gm.163.com/cgi-bin/csa/csa_self_help_dispatch.py",{ x : 1 }).done(function(obj){
+              console.log(obj)
+        }).fail(function(){
+            alert("Error!");
+        });
+        $.ajax({
+            url: 'http://box.gm.163.com/cgi-bin/csa/csa_self_help_dispatch.py',
+            header: {
+                'Access-Control-Allow-Origin':'*'
+            },
+            data: {
+                target:'box_tools',
+                from:'pc_box_tools',
+                paper_id:2831,
+                act:'skill_calculate',
+                xls_name:'xyq_box_tools.xlsx',
+                sheet_name:'bangpaijineng',
+                max_val:160,
+                min_val:0,
+                from_val:12,
+                to_val:12,
+                type:3
+            },
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: 'json',
+            type: 'post',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Access-Control-Allow-Origin','*');
+                xhr.setRequestHeader("Content-type", "application/json");
+            }
+        }).then((data) => {
+            console.log(data)
+        })
     }
     render () {
         return (
@@ -29,12 +64,12 @@ class Main extends Component {
                 <div className="box">
                     <div className="playerInfo">
                         <div className="face">
-                            <div className="time">10:00</div>
+                            <span className="time">10:00</span>
                         </div>
                         <div className="name">asdasdsa</div>
                         <div className="artist">asdasdasd</div>
                     </div>
-                    <div className="playerProgress">asdasdas</div>
+                    <div className="playerProgress"><span></span></div>
                     <div className="playerControl">
                         <a href="#"><i></i>后退</a>
                         <a href="#"><i></i>播放/暂停</a>

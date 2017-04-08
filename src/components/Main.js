@@ -1,23 +1,29 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { listMusic } from './../action'
-/*import Cover from './Cover'
-import Describe from './Describe'
-import Button from './Button'*/
+import Button from './Button'
+import Info from './Info'
+import Progress from './Progress'
+import Bg from './Bg'
 import $ from 'jquery'
 
 class Main extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            data: {}
+            progressState: 30,//播放进度
+            currentTrackLen: 0, //歌单歌曲数
+            currentTrackIndex: 0, //当前播放的歌曲索引，默认加载第一首歌
+            currentTotalTime: 0, //当前歌曲的总时间
+            playStatus: true, //true为播放状态，false为暂停状态
         }
     }
     componentDidMount () {
         const { dispatch } = this.props;
         $.get('hello.json').then((result) => {
-            dispatch(listMusic(JSON.parse(result).dataType[0]));
-            this.setState({ data: JSON.parse(result).dataType[0] });
+            const { dataType } = JSON.parse(result);
+            dispatch(listMusic(dataType));
+            this.setState({ currentTrackLen: dataType.length });
         },(error) => {
             console.log(error)
         });
@@ -58,29 +64,21 @@ class Main extends Component {
         })
     }
     render () {
+        const { progress, currentTrackIndex } = this.state;
         return (
             <div className="main">
-                <div className="main-bg"></div>
+                {/* 播放器专辑背景  */}
+                <Bg index={currentTrackIndex} />
                 <div className="box">
-                    <div className="playerInfo">
-                        <div className="face">
-                            <span className="time">10:00</span>
-                        </div>
-                        <div className="name">asdasdsa</div>
-                        <div className="artist">asdasdasd</div>
-                    </div>
-                    <div className="playerProgress"><span></span></div>
-                    <div className="playerControl">
-                        <a href="#"><i></i>后退</a>
-                        <a href="#"><i></i>播放/暂停</a>
-                        <a href="#"><i></i>前进</a>
-                    </div>
+                    {/* 播放器信息  */}
+                    <Info index={currentTrackIndex} />
+                    {/* 播放器进度  */}
+                    <Progress progress={progress}></Progress>
+                    {/* 播放器控制器  */}
+                    <Button index={currentTrackIndex}></Button>
                 </div>
-                <audio id="audio"></audio>
             </div>
         )
     }
 }
-export default connect(function (state) {
-    return { list: state.list }
-})(Main);
+export default connect()(Main);

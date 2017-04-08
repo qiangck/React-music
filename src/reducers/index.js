@@ -12,7 +12,7 @@ function toggle(state = [], action) {
 function list(state = [], action) {
 	switch (action.type) {
 		case LIST_MUSIC :
-			return action;
+			return action.text;
 		default: return state;
 	}
 }

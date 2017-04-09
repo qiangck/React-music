@@ -44,7 +44,7 @@ Mock.mock(/\.json/, {
             },
             'album': {
             	'name': 'Brand New World',
-            	'picUrl': 'http://p4.music.126.net/oMfBAB6UlpsAmUbRC9r6bg==/1788905418396610.jpg'
+            	'picUrl': 'http://p4.music.126.net/LYunPP5lDwpokmAZ2Ls8-Q==/796046418555315.jpg'
             },
             'mp3Url': 'http://m2.music.126.net/TtDJ-y5XSwqSvgxwmo2irQ==/2755376139212528.mp3',
             'duration': 282000

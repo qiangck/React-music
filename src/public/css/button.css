@@ -1,0 +1,35 @@
+.playerControl {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+    align-items:center;
+    padding: 0;
+    margin: 0;
+}
+.playerControl li {
+	text-decoration:none;
+    display:block;
+    flex:1;
+    text-align: center;
+}
+.playerControl a {
+	width: 2.021rem;
+	height: 2.021rem;
+	display: inline-block;
+}
+.playerControl ._back {
+	background: url(../img/back.png) no-repeat center center;
+	background-size: cover;
+}
+.playerControl ._go {
+	background: url(../img/go.png) no-repeat center center;
+	background-size: cover;
+}
+.playerControl ._play {
+	background: url(../img/play.png) no-repeat center center;
+	background-size: cover;
+}
+.playerControl ._pause {
+	background: url(../img/pause.png) no-repeat center center;
+	background-size: cover;
+}

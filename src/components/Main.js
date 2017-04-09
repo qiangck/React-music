@@ -6,20 +6,21 @@ import Info from './Info'
 import Progress from './Progress'
 import Bg from './Bg'
 import $ from 'jquery'
-
+import './../public/css/main.css'
 class Main extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            progressState: 30,//播放进度
+            progressState: 0,//播放进度
             currentTrackLen: 0, //歌单歌曲数
-            currentTrackIndex: 0, //当前播放的歌曲索引，默认加载第一首歌
-            currentTotalTime: 0, //当前歌曲的总时间
-            playStatus: true, //true为播放状态，false为暂停状态
+            currentTrackIndex: 0, //当前播放的歌曲索引
+            playStatus: false, //播放状态
         }
     }
     componentDidMount () {
         const { dispatch } = this.props;
+        const { audio } = this.refs;
+        // 初始化请求数据
         $.get('hello.json').then((result) => {
             const { dataType } = JSON.parse(result);
             dispatch(listMusic(dataType));
@@ -27,44 +28,81 @@ class Main extends Component {
         },(error) => {
             console.log(error)
         });
-        $.postCORS("http://box.gm.163.com/cgi-bin/csa/csa_self_help_dispatch.py",{ x : 1 }).done(function(obj){
-              console.log(obj)
-        }).fail(function(){
-            alert("Error!");
+        // 初始化音频监听事件
+        audio.addEventListener('loadedmetadata',() =>{
+            //获取音频时长
+            const timeLong = audio.duration;
+            audio.addEventListener('timeupdate',() =>{
+                this.setState({
+                    //进度条长度转换
+                    progressState: (audio.currentTime/timeLong*100).toFixed(2)
+                });
+            });
+            audio.addEventListener('ended',() => {
+                this._palySwitch('back');
+            });
         });
-        $.ajax({
-            url: 'http://box.gm.163.com/cgi-bin/csa/csa_self_help_dispatch.py',
-            header: {
-                'Access-Control-Allow-Origin':'*'
-            },
-            data: {
-                target:'box_tools',
-                from:'pc_box_tools',
-                paper_id:2831,
-                act:'skill_calculate',
-                xls_name:'xyq_box_tools.xlsx',
-                sheet_name:'bangpaijineng',
-                max_val:160,
-                min_val:0,
-                from_val:12,
-                to_val:12,
-                type:3
-            },
-            xhrFields: {
-                withCredentials: true
-            },
-            dataType: 'json',
-            type: 'post',
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Access-Control-Allow-Origin','*');
-                xhr.setRequestHeader("Content-type", "application/json");
+    }
+    // 播放回调
+    _palyState (text) {
+        const { playStatus } = this.state;
+        const { audio } = this.refs;
+        if (text === 'play') {
+            if (playStatus) {
+                console.log('暂停');
+                audio.pause();
+            } else {
+                console.log('播放');
+                audio.play();
             }
-        }).then((data) => {
-            console.log(data)
-        })
+            this.setState({ playStatus: !playStatus });
+        } else {
+            this.setState({ playStatus: true });
+            audio.play();
+        }
+    }
+    // 切换回调
+    _palySwitch (text) {
+        const { currentTrackIndex, currentTrackLen } = this.state;
+        let number = currentTrackIndex;
+        switch (text) {
+            case 'back':
+                number = number > 0 ? number - 1 : currentTrackLen - 1
+                break;
+            case 'go':
+                number = number < currentTrackLen - 1 ? number + 1 : 0
+                break;
+            default:
+                return false;
+        }
+        this.setState({currentTrackIndex: number}, () => {
+            this._palyState();
+        });
+    }
+    // 控制器回调
+    _handlerClick = (text, e) => {
+        e.preventDefault();
+        switch (text) {
+            case 'back':
+                console.log('后退');
+                this._palySwitch(text);
+                break;
+            case 'play':
+                this._palyState(text);
+                break;
+            case 'go':
+                console.log('前进');
+                this._palySwitch(text);
+                break;
+            default:
+                return false;
+        }
     }
     render () {
-        const { progress, currentTrackIndex } = this.state;
+        const { progressState, currentTrackIndex, playStatus } = this.state;
+        const { musicList } = {
+            musicList: this.props.musicList.length > 0 ? this.props.musicList[currentTrackIndex] : ''
+        }
         return (
             <div className="main">
                 {/* 播放器专辑背景  */}
@@ -73,12 +111,15 @@ class Main extends Component {
                     {/* 播放器信息  */}
                     <Info index={currentTrackIndex} />
                     {/* 播放器进度  */}
-                    <Progress progress={progress}></Progress>
+                    <Progress progress={progressState}></Progress>
                     {/* 播放器控制器  */}
-                    <Button index={currentTrackIndex}></Button>
+                    <Button index={currentTrackIndex} onPlay={this._handlerClick} statePlay={playStatus}></Button>
                 </div>
+                <audio src={ musicList.mp3Url } ref="audio"></audio>
             </div>
         )
     }
 }
-export default connect()(Main);
+export default connect(function (state) {
+    return { musicList: state.list }
+})(Main);

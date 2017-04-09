@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import './../public/css/progress.css'
+
 export default class Progress extends Component {
     render () {
         const { progress } = this.props;

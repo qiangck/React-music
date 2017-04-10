@@ -1,4 +1,4 @@
-# React-music
+# react-music
 
 ## 概述
 

@@ -1,20 +1,12 @@
 import { combineReducers } from 'redux';
-import { TOGGLE_MUSIC, LIST_MUSIC } from './../action';
+import { RECEIVE_POSTS } from './../action';
 
-function toggle(state = [], action) {
+function list(state = [], action) {
 	switch (action.type) {
-		case TOGGLE_MUSIC :
+		case RECEIVE_POSTS :
 			return action;
 		default: return state;
 	}
 }
 
-function list(state = [], action) {
-	switch (action.type) {
-		case LIST_MUSIC :
-			return action.text;
-		default: return state;
-	}
-}
-
-export default combineReducers({ toggle, list });
+export default combineReducers({ list });

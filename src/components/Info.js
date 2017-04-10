@@ -4,9 +4,9 @@ import './../public/css/info.css'
 class Info extends Component {
     render () {
     	const { musicList, index } = this.props;
-		const { name, artists, imgUrl } = musicList[index] ? {
+		const { name, artists, imgUrl } = musicList ? {
 			name: musicList[index].name,
-			artists: musicList[index].artists.name,
+			artists: musicList[index].artists[0].name,
 			imgUrl: musicList[index].album.picUrl
 		} : {}
         return (
@@ -25,6 +25,6 @@ class Info extends Component {
 }
 
 export default connect(function(state) {
-	return { musicList: state.list }
+	return { musicList: state.list.posts }
 })(Info);
 

@@ -1,12 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import reducer from './reducers'
+import store from './store'
 import Main from './components/Main'
 import './mock'
 import 'normalize.css';
-let store = createStore(reducer);
 
 render(
   <Provider store={store}>

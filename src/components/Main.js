@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { listMusic } from './../action'
+import { listMusic, fetchPosts } from './../action'
 import Button from './Button'
 import Info from './Info'
 import Progress from './Progress'
@@ -21,13 +21,14 @@ class Main extends Component {
         const { dispatch } = this.props;
         const { audio } = this.refs;
         // 初始化请求数据
-        $.get('hello.json').then((result) => {
-            const { dataType } = JSON.parse(result);
-            dispatch(listMusic(dataType));
-            this.setState({ currentTrackLen: dataType.length });
-        },(error) => {
-            console.log(error)
-        });
+        // $.get('hello.json').then((result) => {
+        //     const { dataType } = JSON.parse(result);
+        //     dispatch(listMusic(dataType));
+        //     this.setState({ currentTrackLen: dataType.length });
+        // },(error) => {
+        //     console.log(error)
+        // });
+        dispatch(fetchPosts('111'))
         // 初始化音频监听事件
         audio.addEventListener('loadedmetadata',() =>{
             //获取音频时长
@@ -63,7 +64,8 @@ class Main extends Component {
     }
     // 切换回调
     _palySwitch (text) {
-        const { currentTrackIndex, currentTrackLen } = this.state;
+        const { currentTrackIndex } = this.state;
+        const { currentTrackLen } = this.props;
         let number = currentTrackIndex;
         switch (text) {
             case 'back':
@@ -101,7 +103,7 @@ class Main extends Component {
     render () {
         const { progressState, currentTrackIndex, playStatus } = this.state;
         const { musicList } = {
-            musicList: this.props.musicList.length > 0 ? this.props.musicList[currentTrackIndex] : ''
+            musicList: this.props.musicList ? this.props.musicList[currentTrackIndex] : ''
         }
         return (
             <div className="main">
@@ -121,5 +123,8 @@ class Main extends Component {
     }
 }
 export default connect(function (state) {
-    return { musicList: state.list }
+    return {
+        musicList: state.list.posts,
+        currentTrackLen: state.list.posts ? state.list.posts.length : 0
+    }
 })(Main);

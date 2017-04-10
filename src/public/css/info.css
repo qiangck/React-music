@@ -28,7 +28,17 @@
 .playerInfo ._name{
 	font-size: 18px;
 	line-height: 2.5;
+	width: 60%;
+	display: inline-block;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .playerInfo ._artist{
 	font-size: 14px;
+	width: 60%;
+	display: inline-block;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }

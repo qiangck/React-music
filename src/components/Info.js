@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import './../public/css/info.css'
 class Info extends Component {
     render () {
     	const { musicList, index } = this.props;

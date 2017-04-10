@@ -1,0 +1,11 @@
+.main-bg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(169, 171, 49, 0.55);
+	filter: blur(65px);
+	-webkit-filter: blur(65px);
+	z-index: 8;
+}

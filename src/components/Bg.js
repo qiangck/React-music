@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import './../public/css/bg.css'
 class Bg extends Component {
     render () {
         const { musicList, index } = this.props;

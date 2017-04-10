@@ -14,7 +14,7 @@ class Main extends Component {
             progressState: 0,//播放进度
             currentTrackLen: 0, //歌单歌曲数
             currentTrackIndex: 0, //当前播放的歌曲索引
-            playStatus: false, //播放状态
+            playStatus: false //播放状态
         }
     }
     componentDidMount () {
@@ -109,7 +109,7 @@ class Main extends Component {
                 <Bg index={currentTrackIndex} />
                 <div className="box">
                     {/* 播放器信息  */}
-                    <Info index={currentTrackIndex} />
+                    <Info index={currentTrackIndex}/>
                     {/* 播放器进度  */}
                     <Progress progress={progressState}></Progress>
                     {/* 播放器控制器  */}

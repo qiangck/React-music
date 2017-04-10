@@ -13,7 +13,7 @@ class Main extends Component {
         this.state = {
             progressState: 30,//播放进度
             currentTrackLen: 0, //歌单歌曲数
-            currentTrackIndex: 0, //当前播放的歌曲索引，默认加载第一首歌
+            currentTrackIndex: 0, //当前播放的歌曲索引
             currentTotalTime: 0, //当前歌曲的总时间
             playStatus: true, //true为播放状态，false为暂停状态
         }
